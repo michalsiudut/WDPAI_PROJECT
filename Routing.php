@@ -15,6 +15,9 @@ class Routing {
         case 'test':
             include 'public/views/test.html';
             break;
+        case 'profile':
+            include 'public/views/profile.html';
+            break;
         default:
             include 'public/views/404.html';
             break;

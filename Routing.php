@@ -1,7 +1,14 @@
 <?php
 
 require_once 'src/controllers/SecurityController.php';
+require_once 'src/controllers/DashboardController.php';
 
+
+// TODO musimty zapewnic ze utworzony oboekt ma tylko jedna iinstacje - singleton
+
+//  TODO /dashboard - wszystkie dane
+//  /dashboiard/12234 - wyciagnie nam jakis elemtn o konkretnym id 12234
+//  regex
 class Routing {
 
 
@@ -13,6 +20,10 @@ class Routing {
         "register" => [
             "controller" => "SecurityController",
             "action" => "register",
+        ],
+        "dashboard" => [
+            "controller" => "DashboardController",
+            "action" => "dashboard",
         ]
     ];
 
@@ -20,9 +31,13 @@ class Routing {
 
         switch($path){
          case 'dashboard':
-            // TODO connect with database
-            // get elements to present on dashboard
-            include 'public/views/dashboard.html';
+            $controller = Routing::$routes[$path]["controller"];
+            $action = Routing::$routes[$path]["action"];
+
+
+            $controllerObj = new $controller;
+            $controllerObj -> $action();
+
             break;
         case 'login':
         case 'register':
